@@ -1,0 +1,248 @@
+JENKINS KHAJANA
+Jenkins is a continous integration tool that is used to automate the task.
+Lets say, if you are working in industry :	
+FOr 7 hrs: 9
+& you come to office next day once you exit the office place.
+So we will ask jenkins to do all this work for us .Jenkins will create a job at 2.00 am in morning or based on schedule time.
+2.At the time of designing framework in industry , we will definately have a jenkins job in industry.
+Lets say, if we have a regression job,smoke & if will click on trigger or build,it will do everything
+3.On a high level,if business wants to see then they will not open eclipse or run a command like that to trigger the job. we can use jenkins
+$.Go to jenkins by using link 
+Hit on Build now
+or TestNG reports .
+4.Jenkins run own its own server and we need to set java & maven version  to it.Based upon the version you set, jenkins run all your testcases.
+5.For ex:testng version -6
+jenkins version-5
+That my give bad results in our jenkins job .so to trigger it & maintain consistency,
+Jenkins will have its own dependency.
+
+6.Some times, jenkins job will easilty run in  jenkins server but might not run in your local system cuz of some outdated version of selenium
+In this case,script might fail .
+7.FOr business perspective , they will see the results in the jenkins& if developer too wants to know the job , then he need not to login to his machine. he will simply go to jenkins server by using the same link and will trigger the testcases(No need of clone & do all those stuff).
+8.It will help us to maintain the project across different geographical location
+9.This is the benefit of using jenkins in our project
+
+INSTALL & CONFIGURE JENKINS JOB
+
+Install and configure Jenkins
+1.In general , at your work place , you will have one server and devops people will do that work for you.
+2.But we dont have any server to host so here you will see url like localhost
+in real time, you will see with company.com
+3.go to given link and downloads jenkins war[Generic java package.war ]
+https://www.jenkins.io/download/
+As said , we are using jenkins as windows service. we are not hosting on server
+4.Once it is downloaded , then place it inside any folder
+i have placed it inside the work folder in c driver
+5.Then run below command to execute jenkins jar file
+java -jar jenkins.war -httpPort=9090
+java -jar jenkins.war --httpPort=8085
+if port is already used or running on some other instance. then change port number
+Othewise , you will get an error saying 8080 is already bind to another process like that
+6.In real time you need not to do install all such thing .Thats a task of devops people .They will do this work for you people
+7.First time , we will not see any job there
+8. Goto jenkins =>Manage jenkins=>Gobal tool configuration
+give the path of java in  JDK installation
+C:\Program Files\Java\jdk-13.0.2
+Give the path of maven in same fashion
+C:\Program Files\apache-maven-3.6.3-bin\apache-maven-3.6.3
+Now jenkins page is like system variable for our windows
+9.Like in windows, we used to run our all things in windows by setting system variables.
+Jenkins is also like that but job will run on jenkins server
+10.This are the 2 confuguration that required to setup a jenkins job
+
+
+
+Configure jobs and trigger it
+Push Our Mavenjava project into jenkins.
+SO there are 2 option .you can pick up source code from github or local system
+1.
+1.goto configure=>advanced =>
+take the project from your local directory and place it inside jenkins directory in c drive in .jenkins folder
+2.  click on Use custom work space
+Directory
+${JENKINS_HOME}/Mavenjava
+Display Name
+3. Build=>invoke your project with maven(invoke top level maven target)
+Maven version:apache-maven-3.6.3
+Goals  mvn test -PRegression
+or
+test -PRegression
+p=profiling
+Note:we can ignore mvn command .jenkins will do it automatically
+4.click on save this job
+3.Basically developer used to push their code with jar and deploy to jenkins,
+4.our main goal is to trigger maven job
+
+Lets say if you are client and if you dont know maven ,regression or anything .then you will click on  Build Now
+Maven job will trigger automatically
+
+Click on build now=>Open console=>Build success.
+For first time , it might take time .it will download all dependency.
+
+
+WHat was the issue?project is not update
+and change the path in maven job configuration
+I given directly
+understood
+one more question
+
+Started by user Lavish Jain
+Running as SYSTEM
+Building in workspace C:\Users\DELL\Downloads\Mavenjava
+[Mavenjava] $ cmd.exe /C '""C:\Program Files\apache-maven-3.6.3-bin\apache-maven-3.6.3\bin\mvn.cmd"' test && exit %%ERRORLEVEL%%"
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< qaclickacademy:Mavenjava >----------------------
+[INFO] Building Mavenjava 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ Mavenjava ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\DELL\Downloads\Mavenjava\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ Mavenjava ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ Mavenjava ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\DELL\Downloads\Mavenjava\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ Mavenjava ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ Mavenjava ---
+[INFO] Surefire report directory: C:\Users\DELL\Downloads\Mavenjava\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running TestSuite
+Configuring TestNG with: org.apache.maven.surefire.testng.conf.TestNG652Configurator@66d33a
+IOSApps
+NativeAPpAndroid
+deleteTwitter
+postJira
+BrowserAUtomation
+elementsUi
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.723 sec
+
+Results :
+
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  9.648 s
+[INFO] Finished at: 2020-12-03T10:05:14+05:30
+[INFO] ------------------------------------------------------------------------
+Finished: SUCCESS
+
+
+
+
+
+
+How to publish Testng reports or result into jenkins  job?
+1.goto eclipse
+project=>target=>surefire plugin=>testng-result.xml
+2.Testng came up with one  plugin that can be integrated with jenkins.
+testng requires testng-result .xml file which is inside target to generate that report in jenkins
+3.We need input so that it can prepare reports by reading this testng file
+4.To install that plugin 
+goto Manage jenkins=>Manage Plugins
+5.Go back to top page
+6.Select testng result plugin from postbuild action in configure  Mavenproject .
+we will get one .xml file
+7.click on save(report will be generated)
+8.Next thing that we need to do is scehdule jenkins
+configure=>Build perodically=>Give the jenkins schedule job 
+0 8 * * *
+9.click on Build Now =>You will get Testng results
+
+How to Schedule job in Jenkins by Build periodically?
+Jenkins used a cron expression, and the different fields are:
+1.	MINUTES Minutes in one hour (0-59)
+2.	HOURS Hours in one day (0-23)
+3.	DAYMONTH Day in a month (1-31)
+4.	MONTH Month in a year (1-12)
+5.	DAYWEEK Day of the week (0-7) where 0 and 7 are sunday
+Lets say if I want to schedule my Jenkins job at morning 7 am everyday before I come to office
+Then
+We use * that is regular expression for all days
+•	* 7 * * *
+
+Ex: 
+1.	Start build daily at 08:30 in the morning, Monday - Friday: 30 08 * * 1-5
+2.	Weekday daily build twice a day, at lunchtime 12:00 and midnight 00:00, Sunday to Thursday: 00 0,12 * * 0-4
+3.	Start build daily in the late afternoon between 4:00 p.m. - 4:59 p.m. or 16:00 -16:59 depending on the projects hash: H 16 * * 1-5
+4.	Start build at midnight: @midnight or start build at midnight, every Saturday: 59 23 * * 6
+5.	Every first of every month between 2:00 a.m. - 02:30 a.m.: H(0,30) 02 01 * *
+
+
+
+
+What is extent report?
+Understand basic configuration of extent reports with standalone test
+
+How to publish Extent report using Testng ?
+package lavishAcademy.ExtentReports;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class ExtentReportDemo {
+	ExtentReports extent;
+
+	@BeforeTest
+	public void config() {
+		// ExtentReports ,ExtentSparkReporter
+		String path = System.getProperty("user.dir") + "\\reports\\index.html";
+		ExtentSparkReporter reporter = new ExtentSparkReporter(path);
+		reporter.config().setReportName("Web Automation Results");
+		reporter.config().setDocumentTitle("Test Results");
+
+		extent = new ExtentReports();
+		extent.attachReporter(reporter);
+		extent.setSystemInfo("Tester", "Lavish Jain");
+
+	}
+
+	@Test
+	public void initialDemo() {
+		ExtentTest test=  extent.createTest("Initial Demo");
+		//System.setProperty("webdriver.chrome.driver", "C://work/chromedriver.exe");
+		WebDriverManager.chromedriver().setup();
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://rahulshettyacademy.com");
+		System.out.println(driver.getTitle());
+		driver.close();
+		test.fail("Result do not match");
+		extent.flush();
+	}
+
+}
+
+
+
+
+
+How to create A maven Project in eclipse?
+To create a maven project , Follow this steps
+1.File=>project=>Maven project=>quick archytype=>Group id(package name)=>artifact id(project name)
+2.To work on extent report we need 3 jar.
+extent report
+testng
+selenium
+3.we can get it from maven repository and add dependency to our project
+
+
+
